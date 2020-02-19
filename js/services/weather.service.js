@@ -7,13 +7,20 @@ export const weatherService = {
 
 const KEY = '296b1122b96bcab669d0beb757487874';
 
-var pos = { lat: 32.0749831, lng: 34.9120554 }
-
 
 function getWeather(pos) {
-
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&appid=${KEY}`)
+    var prmWeather = axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&units=metric&appid=${KEY}`)
         .then(res => {
-            console.log(res)
+            return {
+                address: res.data.name,
+                country: res.data.sys.country,
+                temp: Math.ceil(res.data.main.temp),
+                feelsLike: Math.ceil(res.data.main.feels_like),
+                tempMin: Math.ceil(res.data.main.temp_min),
+                tempMax: Math.ceil(res.data.main.temp_max),
+                wind: Math.ceil(res.data.wind.speed),
+                icon: res.data.weather[0].icon
+            }
         })
+    return prmWeather;
 }
