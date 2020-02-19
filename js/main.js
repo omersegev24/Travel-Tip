@@ -20,7 +20,6 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-            console.log('pos', pos)
             console.log('User position is:', pos.coords);
             mapService.centerMap(pos.coords.latitude, pos.coords.longitude); // daniel
             weatherService.getWeather(pos.coords)
@@ -58,3 +57,8 @@ function renderWeather(weather) {
                     </div>`;
     document.querySelector('.weather-container').innerHTML = strHTML
 }
+        
+
+
+// locService.getLocByName('bacher tel aviv 4')
+//     .then(res => console.log(res))

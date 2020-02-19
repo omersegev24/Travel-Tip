@@ -35,16 +35,15 @@ function addMarker(loc) {
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
+    
     gMap.setZoom(17);
 }
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyDuhEbi5g29ytt3d8IDAh7HHPJEzvA2Qmw'; 
+    const API_KEY = 'AIzaSyCS9KKJZD6rGF93tIgOd3qqW8GNz4oZIBA'; 
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
-    
-
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 

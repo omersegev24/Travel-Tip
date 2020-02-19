@@ -18,8 +18,24 @@ function getPosition() {
 }
 
 
+function getLocByName(locName) {
+    const API_KEY = 'AIzaSyCS9KKJZD6rGF93tIgOd3qqW8GNz4oZIBA'
+    var location = {}
+    var prmLocation = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=${API_KEY}`)
+        .then(res => {
+    
+            location.address = res.data.results[0].formatted_address
+            var geo = res.data.results[0].geometry.location
+            location.lat = geo.lat
+            location.lng = geo.lng
+            return location
+        })
+        return prmLocation
+}
+
 
 export const locService = {
     getLocs,
-    getPosition
+    getPosition,
+    getLocByName
 }
