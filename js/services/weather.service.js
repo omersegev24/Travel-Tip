@@ -9,7 +9,12 @@ const KEY = '296b1122b96bcab669d0beb757487874';
 
 
 function getWeather(pos) {
-    var prmWeather = axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&units=metric&appid=${KEY}`)
+    if (location.protocol === 'http:') {
+        var url = `http://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&units=metric&appid=${KEY}`;
+     } else {
+        url = `https://api.openweathermap.org/data/2.5/weather?lat=${pos.latitude}&lon=${pos.longitude}&units=metric&appid=${KEY}`;
+     }
+    var prmWeather = axios.get(url)
         .then(res => {
             return {
                 address: res.data.name,
