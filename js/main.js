@@ -6,6 +6,7 @@ import {weatherService} from './services/weather.service.js'
 import {utilsService} from './services/util.service.js'
 
 
+
 locService.getLocs()
     .then(locs => console.log('locs', locs))
 
@@ -19,8 +20,9 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-            
+            console.log('pos', pos)
             console.log('User position is:', pos.coords);
+            mapService.centerMap(pos.coords.latitude, pos.coords.longitude); // daniel
             weatherService.getWeather(pos.coords);
         })
         .catch(err => {
@@ -32,5 +34,11 @@ window.onload = () => {
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
+    locService.getPosition()
+        .then(pos => {
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude);
+            mapService.addMarker({lat: pos.coords.latitude, lng:pos.coords.longitude});
+        })
 })
+
+
