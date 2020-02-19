@@ -7,27 +7,22 @@ import { utilsService } from './services/util.service.js'
 
 
 
-locService.getLocs()
-    .then(locs => console.log('locs', locs))
-
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
-        })
-        .catch(console.log('INIT MAP ERROR'));
-
-    locService.getPosition()
-        .then(pos => {
-            weatherService.getWeather(pos.coords)
-                .then(renderWeather)
-            mapService.centerMap(pos.coords.latitude, pos.coords.longitude); 
-        })
-        .catch(err => {
-            console.log('err!!!', err);
+            locService.getPosition()
+                .then(pos => {
+                    mapService.centerMap(pos.coords.latitude, pos.coords.longitude);
+                    mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+                    weatherService.getWeather(pos.coords)
+                        .then(renderWeather)
+                })
+                .catch(err => {
+                    console.log('err!!!', err);
+                })
         })
 }
+
 
 
 
@@ -42,7 +37,7 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
 })
 
 document.querySelector('.copy-btn').addEventListener('click', (ev) => {
-    
+
 })
 
 document.querySelector('.go-btn').addEventListener('click', (ev) => {
@@ -79,4 +74,3 @@ function renderLocDetails(loc) {
     document.querySelector('.loc-details span').innerText = loc.address;
     document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}`
 }
-
