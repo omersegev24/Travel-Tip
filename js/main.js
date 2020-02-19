@@ -57,7 +57,7 @@ function renderWeather(weather) {
 
     var strHTML = `<div class="weather-card">
                         <p class="head-line">Weather today</p>
-                        <img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="">
+                        <img src="${weather.icon}" alt="">
                         <p class="address">${weather.address}, ${weather.country}</p>
                         <p class="temp">Temp: ${weather.temp}℃</p>
                         <p class="wind">Wind speed: ${weather.wind} m/s</p>
