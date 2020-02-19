@@ -4,6 +4,7 @@ import locService from './services/loc.service.js'
 import mapService from './services/map.service.js'
 
 
+
 locService.getLocs()
     .then(locs => console.log('locs', locs))
 
@@ -17,8 +18,9 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-            
+            console.log('pos', pos)
             console.log('User position is:', pos.coords);
+            mapService.centerMap(pos.coords.latitude, pos.coords.longitude); // daniel
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -27,5 +29,11 @@ window.onload = () => {
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
+    locService.getPosition()
+        .then(pos => {
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude);
+            mapService.addMarker({lat: pos.coords.latitude, lng:pos.coords.longitude});
+        })
 })
+
+
