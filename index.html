@@ -4,27 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES6</title>
+    <title>Travel Tip</title>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
-    <h1>ES6</h1>
-    <input class="location-input" type="text" name="location" id="location">
-
-    <button class="go-btn">GO</button>
-<<<<<<< HEAD
-    <button class="my-loc-btn">My Location</button>
-    <button class="copy-btn">Copy Current location</button>
-
-=======
-    <button class="btn">My Location</button>
-    <input class="copy-input" type="text" name="" id="">
-    <div class="loc-details"></div>
->>>>>>> 1bbc34d8155339e08bc196b8153e0c0eb90b5426
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    <header class="main-header flex space-between">
+        <h1>TravelTip</h1>
+        <div class=" flex align-center">
+            <input class="location-input" type="text" name="location" id="location">
+            <button class="btn go-btn">GO</button>
+            <button class="btn my-loc-btn">My Location</button>
+        </div>
+    </header>
 
 
-    <section class="weather-container"></section>
+    <section class="loc-container">
+        <div class="loc-details">Location: <span></span></div>
+        <button class="btn copy-btn">Copy Current location</button>
+        <input class="copy-input" type="text" name="" id="" hidden>
+    </section>
+
+    <section class="main-container">
+        <section class="weather-container"></section>
+        <div class="map" id="map"></div>
+    </section>
 
     <script src="lib/axios.js"></script>
     <script type="module" src="js/main.js"></script>

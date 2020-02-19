@@ -20,10 +20,9 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords);
-            mapService.centerMap(pos.coords.latitude, pos.coords.longitude); // daniel
             weatherService.getWeather(pos.coords)
                 .then(renderWeather)
+            mapService.centerMap(pos.coords.latitude, pos.coords.longitude); 
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -36,7 +35,7 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
     locService.getPosition()
         .then(pos => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude);
-            mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+            mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
             weatherService.getWeather(pos.coords)
                 .then(renderWeather)
         })
@@ -48,6 +47,7 @@ document.querySelector('.copy-btn').addEventListener('click', (ev) => {
 
 document.querySelector('.go-btn').addEventListener('click', (ev) => {
     var locationTxt = document.querySelector('.location-input').value
+    if(!locationTxt) return;
     locService.getLocByName(locationTxt)
         .then(loc => {
             mapService.panTo(loc.lat, loc.lng)
@@ -76,9 +76,7 @@ function renderWeather(weather) {
 }
 
 function renderLocDetails(loc) {
-    document.querySelector('.loc-details').innerText = `Location: ${loc.address}`
+    document.querySelector('.loc-details span').innerText = loc.address;
     document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}`
 }
 
-// locService.getLocByName('bacher tel aviv 4')
-//     .then(res => console.log(res))

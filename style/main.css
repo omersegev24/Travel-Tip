@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.btn {
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.btn :hover {
+    background-color: black;
+    color: white;
+}
+
+.main-container{
+display: flex;
+justify-content: space-between;
+}
+
+.map {
+    width: 50%;
+    height: 400px;
+}
+
+.weather-card {
+    padding: 5px 20px;
+    border: 1px solid black;
+}
+
+
+.flex{
+    display: flex;
+}
+.space-between{
+    justify-content: space-between;
+}
+.align-center{
+    align-items: center;
+}
