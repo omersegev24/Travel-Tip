@@ -8,10 +8,11 @@ import { utilsService } from './services/util.service.js'
 
 
 window.onload = () => {
-    mapService.initMap()
+    mapService.initMap() // if there are params in the url center the map accordingly
         .then(() => {
-            locService.getPosition()
+            locService.getPosition() //problem to fix: getting the user pos even if the link is shared with diff location - not good!!!
                 .then(pos => {
+                    
                     mapService.centerMap(pos.coords.latitude, pos.coords.longitude);
                     mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
                     weatherService.getWeather(pos.coords)

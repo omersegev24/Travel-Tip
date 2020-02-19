@@ -13,9 +13,9 @@ var gMap;
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     var latFromUrl = utilsService.getParameterByName('lat')
     var lngFromUrl = utilsService.getParameterByName('lng')
-
-    lat = (latFromUrl)? +latFromUrl : 32.0749831
-    lng = (lngFromUrl)? +lngFromUrl : 34.9120554
+    console.log(latFromUrl, lngFromUrl)
+    lat = (latFromUrl) ? +latFromUrl : 32.0749831
+    lng = (lngFromUrl) ? +lngFromUrl : 34.9120554
 
     console.log('InitMap');
     return _connectGoogleApi()
@@ -40,6 +40,7 @@ function addMarker(loc) {
 }
 
 function panTo(lat, lng) {
+    console.log('lat: ', lat, 'lng', lng)
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
 
