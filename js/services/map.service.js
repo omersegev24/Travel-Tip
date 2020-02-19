@@ -12,8 +12,9 @@ export const mapService = {
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    var latFromUrl = utilsService.getParameterByName('lat')
-    var lngFromUrl = utilsService.getParameterByName('lng')
+    
+    var latFromUrl = +utilsService.getParameterByName('lat')
+    var lngFromUrl = +utilsService.getParameterByName('lng')
     if(latFromUrl && lngFromUrl){
         lat = latFromUrl
         lng = lngFromUrl
@@ -26,7 +27,8 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     }
 
     console.log('InitMap');
-    return _connectGoogleApi()
+    console.log(lat,lng)
+    return _connectGoogleApi() // map problem when we open from github https.. secure and unsecured request //
         .then(() => {
             console.log('google available');
             gMap = new google.maps.Map(
@@ -35,6 +37,8 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
+            
+            return {latitude: lat, longitude: lng}
         })
 }
 
