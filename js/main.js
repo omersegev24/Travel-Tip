@@ -59,13 +59,13 @@ document.querySelector('.go-btn').addEventListener('click', (ev) => {
 function renderWeather(weather) {
 
     var strHTML = `<div class="weather-card">
+                        <p class="head-line">Weather today</p>
                         <img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="">
-                        <p class="address">${weather.address}</p>
-                        <p class="country">${weather.country}</p>
+                        <p class="address">${weather.address}, ${weather.country}</p>
                         <p class="temp">Temp: ${weather.temp}℃</p>
                         <p class="wind">Wind speed: ${weather.wind} m/s</p>
                         <p class="feels-like">Feels like: ${weather.feelsLike}℃</p>
-                        <p class="min-temp">From ${weather.tempMin}℃ to ${weather.tempMax}℃</p>
+                        <p class="min-temp">Temperature from ${weather.tempMin}℃ to ${weather.tempMax}℃</p>
                     </div>`;
     document.querySelector('.weather-container').innerHTML = strHTML
 }
