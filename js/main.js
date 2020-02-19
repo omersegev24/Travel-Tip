@@ -32,8 +32,7 @@ window.onload = () => {
 
 
 
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
+document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
     locService.getPosition()
         .then(pos => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude);
@@ -41,6 +40,10 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
             weatherService.getWeather(pos.coords)
                 .then(renderWeather)
         })
+})
+
+document.querySelector('.copy-btn').addEventListener('click', (ev) => {
+    
 })
 
 
@@ -57,7 +60,7 @@ function renderWeather(weather) {
                     </div>`;
     document.querySelector('.weather-container').innerHTML = strHTML
 }
-        
+
 
 
 // locService.getLocByName('bacher tel aviv 4')
