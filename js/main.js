@@ -43,9 +43,23 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
         })
 })
 
+document.querySelector('.go-btn').addEventListener('click', (ev) => {
+    var locationTxt = document.querySelector('.location-input').value
+    locService.getLocByName(locationTxt)
+        .then(loc => {
+            mapService.panTo(loc.lat, loc.lng)
+            mapService.addMarker({ lat: loc.lat, lng: loc.lng })
+            renderLocDetails(loc)
+        })
+        .catch(err => {
+            console.log('missing city', err)
+        })
+})
+
+
 
 function renderWeather(weather) {
-    console.log(weather)
+
     var strHTML = `<div class="weather-card">
                         <img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="">
                         <p class="address">${weather.address}</p>
@@ -57,8 +71,11 @@ function renderWeather(weather) {
                     </div>`;
     document.querySelector('.weather-container').innerHTML = strHTML
 }
-        
 
+function renderLocDetails(loc) {
+    document.querySelector('.loc-details').innerText = `Location: ${loc.address}`
+    document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}`
+}
 
 // locService.getLocByName('bacher tel aviv 4')
 //     .then(res => console.log(res))
