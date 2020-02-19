@@ -1,7 +1,9 @@
 console.log('Main!');
 
-import locService from './services/loc.service.js'
-import mapService from './services/map.service.js'
+import {locService} from './services/loc.service.js'
+import {mapService} from './services/map.service.js'
+import {weatherService} from './services/weather.service.js'
+import {utilsService} from './services/util.service.js'
 
 
 locService.getLocs()
@@ -19,11 +21,14 @@ window.onload = () => {
         .then(pos => {
             
             console.log('User position is:', pos.coords);
+            weatherService.getWeather(pos.coords);
         })
         .catch(err => {
             console.log('err!!!', err);
         })
 }
+
+
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);

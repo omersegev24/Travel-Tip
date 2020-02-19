@@ -1,15 +1,13 @@
 
-export default {
+export const mapService = {
     initMap,
     addMarker,
     panTo
 }
 
-
 var map;
 
-
-export function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
@@ -39,9 +37,9 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = ''; //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyDuhEbi5g29ytt3d8IDAh7HHPJEzvA2Qmw';
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDuhEbi5g29ytt3d8IDAh7HHPJEzvA2Qmw`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
