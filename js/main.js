@@ -3,7 +3,7 @@ console.log('Main!');
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
-import { utilsService } from './services/util.service.js'
+// import { utilsService } from './services/util.service.js'
 
 
 
@@ -12,8 +12,7 @@ window.onload = () => {
         .then(() => {
             locService.getPosition() //problem to fix: getting the user pos even if the link is shared with diff location - not good!!!
                 .then(pos => {
-                    
-                    mapService.centerMap(pos.coords.latitude, pos.coords.longitude);
+                    // mapService.centerMap(pos.coords.latitude, pos.coords.longitude);
                     mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
                     weatherService.getWeather(pos.coords)
                         .then(renderWeather)

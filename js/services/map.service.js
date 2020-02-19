@@ -1,4 +1,5 @@
 import { utilsService } from "./util.service.js";
+import { locService } from './loc.service.js';
 
 export const mapService = {
     initMap,
@@ -13,9 +14,16 @@ var gMap;
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     var latFromUrl = utilsService.getParameterByName('lat')
     var lngFromUrl = utilsService.getParameterByName('lng')
-    console.log(latFromUrl, lngFromUrl)
-    lat = (latFromUrl) ? +latFromUrl : 32.0749831
-    lng = (lngFromUrl) ? +lngFromUrl : 34.9120554
+    if(latFromUrl && lngFromUrl){
+        lat = latFromUrl
+        lng = lngFromUrl
+    } else {
+        locService.getPosition()
+            .then(res => {
+                lat = res.coords.latitude
+                lng = res.coords.longitude
+            })
+    }
 
     console.log('InitMap');
     return _connectGoogleApi()
