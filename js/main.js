@@ -1,4 +1,3 @@
-console.log('Main!');
 
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
@@ -8,20 +7,19 @@ import { weatherService } from './services/weather.service.js'
 window.onload = () => {
     mapService.initMap()
         .then(pos => {
-                    mapService.centerMap(pos.latitude, pos.longitude);
-                    mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
-                    console.log(pos)
-                    weatherService.getWeather(pos)
-                        .then(renderWeather)
-                })
-                .catch(err => {
-                    console.log('err!!!', err);
-                })
+            mapService.centerMap(pos.latitude, pos.longitude);
+            mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
+            weatherService.getWeather(pos)
+                .then(renderWeather)
+            renderLocDetailsUrl()
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
 }
 
 
-
-document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
+document.querySelector('.my-loc-btn').addEventListener('click', () => {
     locService.getPosition()
     .then(pos => {
         mapService.panTo(pos.coords.latitude, pos.coords.longitude);
@@ -32,18 +30,20 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
 })
 
 
-document.querySelector('.go-btn').addEventListener('click', (ev) => {
+document.querySelector('.go-btn').addEventListener('click', () => {
     var locationTxt = document.querySelector('.location-input').value
     if (!locationTxt) return;
     locService.getLocByName(locationTxt)
-    .then(loc => {
-        mapService.panTo(loc.lat, loc.lng)
-        mapService.addMarker({ lat: loc.lat, lng: loc.lng })
-        renderLocDetails(loc)
-    })
-    .catch(err => {
-        console.log('missing city', err)
-    })
+        .then(loc => {
+            mapService.panTo(loc.lat, loc.lng)
+            mapService.addMarker({ lat: loc.lat, lng: loc.lng })
+            weatherService.getWeather({ latitude: loc.lat, longitude: loc.lng })
+                .then(renderWeather)
+            renderLocDetails(loc)
+        })
+        .catch(err => {
+            console.log('address not found', err)
+        })
 })
 
 document.querySelector('.copy-btn').addEventListener('click', () => {
@@ -74,9 +74,9 @@ function renderLocDetails(loc) {
     document.querySelector('.location-input').value = ''
 }
 
-// function renderLocDetailsUrl() {
-//     var locDetailsTxt = utilsService.getParameterByName('name')
-//     if (locDetailsTxt) {
-//         document.querySelector('.loc-details span').innerText = locDetailsTxt
-//     }
-// }
+function renderLocDetailsUrl() {
+    var locDetailsTxt = utilsService.getParameterByName('name')
+    if (locDetailsTxt) {
+        document.querySelector('.loc-details span').innerText = locDetailsTxt
+    }
+}
