@@ -38,6 +38,8 @@ document.querySelector('.go-btn').addEventListener('click', () => {
         .then(loc => {
             mapService.panTo(loc.lat, loc.lng)
             mapService.addMarker({ lat: loc.lat, lng: loc.lng })
+            weatherService.getWeather({ latitude: loc.lat, longitude: loc.lng })
+                .then(renderWeather)
             renderLocDetails(loc)
         })
         .catch(err => {
