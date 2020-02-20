@@ -14,19 +14,13 @@ window.onload = () => {
                     console.log(pos)
                     weatherService.getWeather(pos)
                         .then(renderWeather)
+                        renderLocDetailsUrl()
                 })
                 .catch(err => {
                     console.log('err!!!', err);
                 })
 }
 
-
-// function renderLocDetailsUrl() {
-//     var locDetailsTxt = utilsService.getParameterByName('name')
-//     if (locDetailsTxt) {
-//         document.querySelector('.loc-details span').innerText = locDetailsTxt
-//     }
-// }
 
 document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
     locService.getPosition()
@@ -80,4 +74,11 @@ function renderLocDetails(loc) {
     document.querySelector('.loc-details span').innerText = loc.address;
     document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}&name=${loc.address}`
     document.querySelector('.location-input').value = ''
+}
+
+function renderLocDetailsUrl() {
+    var locDetailsTxt = utilsService.getParameterByName('name')
+    if (locDetailsTxt) {
+        document.querySelector('.loc-details span').innerText = locDetailsTxt
+    }
 }
