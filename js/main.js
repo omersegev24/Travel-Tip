@@ -9,24 +9,24 @@ import { utilsService } from './services/util.service.js';
 window.onload = () => {
     mapService.initMap()
         .then(pos => {
-            mapService.centerMap(pos.latitude, pos.longitude);
-            mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
-            weatherService.getWeather(pos)
-                .then(renderWeather)
-                .then(renderLocDetailsUrl)
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        })
+                    mapService.centerMap(pos.latitude, pos.longitude);
+                    mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
+                    console.log(pos)
+                    weatherService.getWeather(pos)
+                        .then(renderWeather)
+                })
+                .catch(err => {
+                    console.log('err!!!', err);
+                })
 }
 
 
-function renderLocDetailsUrl() {
-    var locDetailsTxt = utilsService.getParameterByName('name')
-    if (locDetailsTxt) {
-        document.querySelector('.loc-details span').innerText = locDetailsTxt
-    }
-}
+// function renderLocDetailsUrl() {
+//     var locDetailsTxt = utilsService.getParameterByName('name')
+//     if (locDetailsTxt) {
+//         document.querySelector('.loc-details span').innerText = locDetailsTxt
+//     }
+// }
 
 document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
     locService.getPosition()
@@ -66,7 +66,7 @@ function renderWeather(weather) {
 
     var strHTML = `<div class="weather-card">
                         <p class="head-line">Weather today</p>
-                        <img src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="">
+                        <img src="${weather.icon}" alt="">
                         <p class="address">${weather.address}, ${weather.country}</p>
                         <p class="temp">Temp: ${weather.temp}℃</p>
                         <p class="wind">Wind speed: ${weather.wind} m/s</p>
