@@ -11,9 +11,8 @@ export const mapService = {
 
 var gMap;
 
-function initMap() {
-    var lat;
-    var lng;
+function initMap(lat = 32.0749831, lng = 34.9120554) {
+    
     var latFromUrl = +utilsService.getParameterByName('lat')
     var lngFromUrl = +utilsService.getParameterByName('lng')
     if(latFromUrl && lngFromUrl){
