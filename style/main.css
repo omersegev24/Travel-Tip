@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -51,11 +52,12 @@ h1 {
     outline: none;
 }
 
-.btn:hover{
-    background-color: black;
-    color: white;
+.btn:hover {
+    background-color: #7583e817;
+    color: black;
 }
-.btn:active{
+
+.btn:active {
     opacity: 0.6;
 }
 
@@ -63,6 +65,11 @@ h1 {
     padding: 10px 5px;
     width: 250px;
     font-size: 1rem;
+}
+
+.copy-input {
+    position: absolute;
+    left: -999em;
 }
 
 .loc-details {
@@ -108,12 +115,13 @@ h1 {
     }
     .get-loc-container {
         display: flex;
+        align-items: flex-end;
         flex-direction: column;
     }
     .loc-container {
         flex-direction: column-reverse;
     }
-    .get-loc-container>*{
+    .get-loc-container>* {
         margin-bottom: 5px;
     }
 }

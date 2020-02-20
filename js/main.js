@@ -3,24 +3,30 @@ console.log('Main!');
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
+import { utilsService } from './services/util.service.js';
 
 
 window.onload = () => {
-    mapService.initMap() 
+    mapService.initMap()
         .then(pos => {
-                    mapService.centerMap(pos.latitude, pos.longitude);
-                    mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
-                    console.log(pos)
-                    weatherService.getWeather(pos)
-                        .then(renderWeather)
-                })
-                .catch(err => {
-                    console.log('err!!!', err);
-                })
+            mapService.centerMap(pos.latitude, pos.longitude);
+            mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
+            weatherService.getWeather(pos)
+                .then(renderWeather)
+                .then(renderLocDetailsUrl)
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
 }
 
 
-
+function renderLocDetailsUrl() {
+    var locDetailsTxt = utilsService.getParameterByName('name')
+    if (locDetailsTxt) {
+        document.querySelector('.loc-details span').innerText = locDetailsTxt
+    }
+}
 
 document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
     locService.getPosition()
@@ -32,13 +38,10 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
         })
 })
 
-document.querySelector('.copy-btn').addEventListener('click', (ev) => {
-
-})
 
 document.querySelector('.go-btn').addEventListener('click', (ev) => {
     var locationTxt = document.querySelector('.location-input').value
-    if(!locationTxt) return;
+    if (!locationTxt) return;
     locService.getLocByName(locationTxt)
         .then(loc => {
             mapService.panTo(loc.lat, loc.lng)
@@ -50,7 +53,14 @@ document.querySelector('.go-btn').addEventListener('click', (ev) => {
         })
 })
 
+document.querySelector('.copy-btn').addEventListener('click', () => {
+    // var url = document.querySelector('.copy-input').value
+    var copyText = document.querySelector(".copy-input");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand("copy");
 
+})
 
 function renderWeather(weather) {
 
@@ -68,5 +78,6 @@ function renderWeather(weather) {
 
 function renderLocDetails(loc) {
     document.querySelector('.loc-details span').innerText = loc.address;
-    document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}`
+    document.querySelector('.copy-input').value = `https://omersegev24.github.io/Travel-Tip/index.html?lat=${loc.lat}&lng=${loc.lng}&name=${loc.address}`
+    document.querySelector('.location-input').value = ''
 }
