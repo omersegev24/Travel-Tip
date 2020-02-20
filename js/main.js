@@ -1,4 +1,3 @@
-console.log('Main!');
 
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
@@ -9,20 +8,19 @@ import { utilsService } from './services/util.service.js';
 window.onload = () => {
     mapService.initMap()
         .then(pos => {
-                    mapService.centerMap(pos.latitude, pos.longitude);
-                    mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
-                    console.log(pos)
-                    weatherService.getWeather(pos)
-                        .then(renderWeather)
-                        renderLocDetailsUrl()
-                })
-                .catch(err => {
-                    console.log('err!!!', err);
-                })
+            mapService.centerMap(pos.latitude, pos.longitude);
+            mapService.addMarker({ lat: pos.latitude, lng: pos.longitude })
+            weatherService.getWeather(pos)
+                .then(renderWeather)
+            renderLocDetailsUrl()
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
 }
 
 
-document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
+document.querySelector('.my-loc-btn').addEventListener('click', () => {
     locService.getPosition()
         .then(pos => {
             mapService.panTo(pos.coords.latitude, pos.coords.longitude);
@@ -33,7 +31,7 @@ document.querySelector('.my-loc-btn').addEventListener('click', (ev) => {
 })
 
 
-document.querySelector('.go-btn').addEventListener('click', (ev) => {
+document.querySelector('.go-btn').addEventListener('click', () => {
     var locationTxt = document.querySelector('.location-input').value
     if (!locationTxt) return;
     locService.getLocByName(locationTxt)
@@ -43,12 +41,11 @@ document.querySelector('.go-btn').addEventListener('click', (ev) => {
             renderLocDetails(loc)
         })
         .catch(err => {
-            console.log('missing city', err)
+            console.log('address not found', err)
         })
 })
 
 document.querySelector('.copy-btn').addEventListener('click', () => {
-    // var url = document.querySelector('.copy-input').value
     var copyText = document.querySelector(".copy-input");
     copyText.select();
     copyText.setSelectionRange(0, 99999)
