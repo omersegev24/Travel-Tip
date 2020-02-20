@@ -2,6 +2,7 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather.service.js'
+import { utilsService } from "./services/util.service.js";
 
 
 window.onload = () => {
